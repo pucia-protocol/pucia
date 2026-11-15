@@ -37,6 +37,17 @@ les attestations de blocs confirmés.
 > [`EMPREINTES-SHA256.txt`](EMPREINTES-SHA256.txt) :
 > `sha256sum -c EMPREINTES-SHA256.txt` doit répondre `OK` sur chaque ligne.
 
+### Preuves par document
+
+Au-delà du commit, chaque document signé est horodaté **séparément** sur sa propre
+empreinte. La preuve `.ots` est placée à côté du document ; pour la vérifier :
+`ots verify <document>.ots`.
+
+| Document | SHA-256 | Preuve |
+|---|---|---|
+| Livre blanc v1.5 | `abc86f983af6a1c7b1145f3ae94897966f7f008789e16c9aa018f718cc60dfbd` | [`PUCIA_Protocole_Universel_pour_IA_v1.5.md.ots`](PUCIA_Protocole_Universel_pour_IA_v1.5.md.ots) |
+| Norme PUCIA-0001 | `7922a5bf96ec6b8094681febf36e6ec7dc1985037ed660fd93a862f218b3ba1f` | [`PUCIA-0001.md.ots`](PUCIA-0001.md.ots) |
+
 ---
 
 ## EN — What is proven
@@ -66,3 +77,14 @@ confirmed block attestations.
 
 > File integrity is additionally attested by [`EMPREINTES-SHA256.txt`](EMPREINTES-SHA256.txt):
 > `sha256sum -c EMPREINTES-SHA256.txt` must return `OK` on every line.
+
+### Per-document proofs
+
+Beyond the commit, each signed document is timestamped **separately** on its own
+digest. The `.ots` proof sits next to its document; to verify:
+`ots verify <document>.ots`.
+
+| Document | SHA-256 | Proof |
+|---|---|---|
+| White paper v1.5 | `abc86f983af6a1c7b1145f3ae94897966f7f008789e16c9aa018f718cc60dfbd` | [`PUCIA_Protocole_Universel_pour_IA_v1.5.md.ots`](PUCIA_Protocole_Universel_pour_IA_v1.5.md.ots) |
+| PUCIA-0001 norm | `7922a5bf96ec6b8094681febf36e6ec7dc1985037ed660fd93a862f218b3ba1f` | [`PUCIA-0001.md.ots`](PUCIA-0001.md.ots) |
