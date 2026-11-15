@@ -1,0 +1,93 @@
+{
+  "pucia_spec": "PUCIA-0001",
+  "protocol_version": "0.1.0",
+  "pucia_oid": "1.3.6.1.4.1.32473.1.1",
+  "name": "Extraction de données de factures",
+  "version": "1.0.0",
+  "created": "2026-11-14T22:00:00Z",
+  "publisher": {
+    "name": "Exemple Labs",
+    "contact": "contact@example.org"
+  },
+  "config_type": "mask",
+  "base_model_id": "exemple/modele-base-1.5b",
+  "base_hash": "7e1d1270e83fec3b46e495f2c85de5dc505c25efa5a6e4c184fe4d25ab6f5832",
+  "tokenizer_hash": "d1dbfd21894c27cd81f88950cb4cfe354f6269d0c39311a8b7c8c834949021f2",
+  "base_model_license": "Apache-2.0",
+  "base_model_parameters": 1500000000,
+  "artifacts": [
+    {
+      "path": "artifacts/masque-couche-12.bin",
+      "sha256": "571747de0defe8e9facd3246ad09d3897cd619d1e31c8815c3248c0f3c293f9b",
+      "size_bytes": 4096,
+      "media_type": "application/octet-stream"
+    }
+  ],
+  "artifact_hash": "28940b651f75a8a365fe317e9028012efa7ed12aa505fb0d44a0bd62a055f656",
+  "parameter_budget": {
+    "base_total": 1500000000,
+    "added_total": 0,
+    "active": 1499983616,
+    "storage_bytes": 4096
+  },
+  "signature": {
+    "algorithm": "Ed25519",
+    "public_key": "p4sLKjKLEHStLQoAy7ooxNxvjlrh2nAs4kHE7KzEGh0=",
+    "file": "signatures/manifest.sig"
+  },
+  "timestamp_proof": [
+    {
+      "format": "OpenTimestamps",
+      "file": "timestamps/manifest.ots"
+    }
+  ],
+  "task_spec": {
+    "task_id": "extraction-factures",
+    "description": "Extraire d'une facture le fournisseur, la date, le numéro, le montant hors taxes, la TVA et le montant toutes taxes comprises, au format JSON.",
+    "languages": [
+      "fr",
+      "en"
+    ],
+    "restrictions": [
+      "Factures dactylographiées uniquement"
+    ]
+  },
+  "benchmark_manifest": [
+    {
+      "name": "exemple-factures",
+      "version": "1.0",
+      "dataset_hash": "7ba9e50d422347a03d484394c30ff88ff3ec11944cc10588a784554326c8d8d2",
+      "metric": "exactitude des champs",
+      "score": 0.94,
+      "baseline_score": 0.71
+    }
+  ],
+  "license": "LicenseRef-PUCIA-Commercial",
+  "pricing": {
+    "model": "paid",
+    "currency": "XOF",
+    "amount": 1250000
+  },
+  "provenance": {
+    "method": "masque binaire appris sur la couche 12, poids de base figés",
+    "training_data": "12 000 factures synthétiques générées pour l'exemple",
+    "data_rights": "données synthétiques, libres de droits"
+  },
+  "lifecycle": "active",
+  "migration": {
+    "commitment": true,
+    "delay_days": 90
+  },
+  "safety": {
+    "risks": [
+      "erreur d'extraction sur factures manuscrites"
+    ],
+    "tests": [
+      "banc exemple-factures 1.0",
+      "régression sur banc généraliste"
+    ]
+  },
+  "rollback": {
+    "procedure": "désactiver le masque ; le modèle de base reprend son comportement d'origine"
+  }
+}

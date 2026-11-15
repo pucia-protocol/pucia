@@ -1,0 +1,480 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:pucia:spec:pucia-0001:0.1.0:manifest-schema",
+  "title": "PUCIA-0001 — Manifeste de paquet de configuration",
+  "description": "Schéma normatif du fichier manifest.json d'un paquet PUCIA, version 0.1.0 de la norme PUCIA-0001.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "pucia_spec",
+    "protocol_version",
+    "pucia_oid",
+    "name",
+    "version",
+    "created",
+    "publisher",
+    "config_type",
+    "base_model_id",
+    "base_hash",
+    "base_model_license",
+    "base_model_parameters",
+    "artifacts",
+    "artifact_hash",
+    "parameter_budget",
+    "signature",
+    "timestamp_proof",
+    "task_spec",
+    "benchmark_manifest",
+    "license",
+    "pricing",
+    "provenance",
+    "lifecycle",
+    "migration",
+    "safety",
+    "rollback"
+  ],
+  "properties": {
+    "pucia_spec": {
+      "const": "PUCIA-0001"
+    },
+    "protocol_version": {
+      "const": "0.1.0"
+    },
+    "pucia_oid": {
+      "type": "string",
+      "pattern": "^1\\.3\\.6\\.1\\.4\\.1\\.(0|[1-9][0-9]*)(\\.(0|[1-9][0-9]*))+$",
+      "maxLength": 256
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)$"
+    },
+    "created": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "Z$"
+    },
+    "publisher": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "contact"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        },
+        "contact": {
+          "type": "string",
+          "format": "email"
+        }
+      }
+    },
+    "config_type": {
+      "enum": [
+        "mask",
+        "routing",
+        "adapter",
+        "task_vector",
+        "policy",
+        "predictor"
+      ]
+    },
+    "base_model_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "base_hash": {
+      "$ref": "#/$defs/sha256"
+    },
+    "tokenizer_hash": {
+      "$ref": "#/$defs/sha256"
+    },
+    "base_model_license": {
+      "$ref": "#/$defs/spdx"
+    },
+    "base_model_parameters": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "artifacts": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "sha256",
+          "size_bytes",
+          "media_type"
+        ],
+        "properties": {
+          "path": {
+            "type": "string",
+            "pattern": "^artifacts/[A-Za-z0-9._-]+(/[A-Za-z0-9._-]+)*$",
+            "not": {
+              "pattern": "(^|/)\\.\\.(/|$)"
+            }
+          },
+          "sha256": {
+            "$ref": "#/$defs/sha256"
+          },
+          "size_bytes": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "media_type": {
+            "type": "string",
+            "pattern": "^[a-z]+/[A-Za-z0-9.+-]+$"
+          }
+        }
+      }
+    },
+    "artifact_hash": {
+      "$ref": "#/$defs/sha256"
+    },
+    "parameter_budget": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "base_total",
+        "added_total",
+        "active",
+        "storage_bytes"
+      ],
+      "properties": {
+        "base_total": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "added_total": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "active": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "storage_bytes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "external_bytes": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "signature": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "algorithm",
+        "public_key",
+        "file"
+      ],
+      "properties": {
+        "algorithm": {
+          "const": "Ed25519"
+        },
+        "public_key": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9+/]{43}=$"
+        },
+        "file": {
+          "const": "signatures/manifest.sig"
+        }
+      }
+    },
+    "timestamp_proof": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "format",
+          "file"
+        ],
+        "properties": {
+          "format": {
+            "enum": [
+              "RFC3161",
+              "OpenTimestamps"
+            ]
+          },
+          "file": {
+            "type": "string",
+            "pattern": "^timestamps/[A-Za-z0-9._-]+\\.(tsr|ots)$"
+          }
+        }
+      }
+    },
+    "task_spec": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "task_id",
+        "description",
+        "languages"
+      ],
+      "properties": {
+        "task_id": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9-]{0,63}$"
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4000
+        },
+        "languages": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z]{2,3}(-[A-Za-z0-9]{2,8})*$"
+          }
+        },
+        "restrictions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "benchmark_manifest": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "version",
+          "dataset_hash",
+          "metric",
+          "score"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "version": {
+            "type": "string",
+            "minLength": 1
+          },
+          "dataset_hash": {
+            "$ref": "#/$defs/sha256"
+          },
+          "metric": {
+            "type": "string",
+            "minLength": 1
+          },
+          "score": {
+            "type": "number"
+          },
+          "baseline_score": {
+            "type": "number"
+          }
+        }
+      }
+    },
+    "license": {
+      "$ref": "#/$defs/spdx"
+    },
+    "pricing": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "model"
+      ],
+      "properties": {
+        "model": {
+          "enum": [
+            "free",
+            "paid"
+          ]
+        },
+        "currency": {
+          "type": "string",
+          "pattern": "^[A-Z]{3}$"
+        },
+        "amount": {
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "if": {
+        "properties": {
+          "model": {
+            "const": "paid"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "currency",
+          "amount"
+        ]
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "method",
+        "training_data",
+        "data_rights"
+      ],
+      "properties": {
+        "method": {
+          "type": "string",
+          "minLength": 1
+        },
+        "training_data": {
+          "type": "string",
+          "minLength": 1
+        },
+        "data_rights": {
+          "type": "string",
+          "minLength": 1
+        },
+        "dependencies": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^1\\.3\\.6\\.1\\.4\\.1(\\.(0|[1-9][0-9]*))+$"
+          }
+        }
+      }
+    },
+    "lifecycle": {
+      "enum": [
+        "active",
+        "deprecated",
+        "migrated",
+        "revoked"
+      ]
+    },
+    "migration": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "commitment"
+      ],
+      "properties": {
+        "commitment": {
+          "type": "boolean"
+        },
+        "delay_days": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "successor_oid": {
+          "type": "string",
+          "pattern": "^1\\.3\\.6\\.1\\.4\\.1(\\.(0|[1-9][0-9]*))+$"
+        }
+      },
+      "if": {
+        "properties": {
+          "commitment": {
+            "const": true
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "delay_days"
+        ]
+      }
+    },
+    "safety": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "risks",
+        "tests"
+      ],
+      "properties": {
+        "risks": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "tests": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "rollback": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "procedure"
+      ],
+      "properties": {
+        "procedure": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "extensions": {
+      "type": "object",
+      "propertyNames": {
+        "pattern": "^([a-z0-9-]+\\.)+[a-z0-9-]+$|^[0-2](\\.(0|[1-9][0-9]*))+\\.[a-z0-9-]+$"
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "lifecycle": {
+            "const": "migrated"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "migration": {
+            "required": [
+              "successor_oid"
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "spdx": {
+      "type": "string",
+      "pattern": "^([A-Za-z0-9.+-]+|LicenseRef-[A-Za-z0-9.-]+)$"
+    }
+  }
+}
