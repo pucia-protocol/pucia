@@ -1,0 +1,5 @@
+PUCIA — preuve d'antériorité du commit de publication initiale
+Dépôt       : github.com/pucia-protocol/pucia
+Commit (SHA): 8cd17df496002554721419c7a84062193f583197
+Message     : Publication initiale : livre blanc v1.5 et norme PUCIA-0001 v0.1.0
+Auteur      : Honoré DEMBELE
