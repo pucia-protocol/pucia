@@ -48,6 +48,8 @@ empreinte. La preuve `.ots` est placée à côté du document ; pour la vérifie
 | Livre blanc v1.5 | `abc86f983af6a1c7b1145f3ae94897966f7f008789e16c9aa018f718cc60dfbd` | [`PUCIA_Protocole_Universel_pour_IA_v1.5.md.ots`](PUCIA_Protocole_Universel_pour_IA_v1.5.md.ots) |
 | Norme PUCIA-0001 | `7922a5bf96ec6b8094681febf36e6ec7dc1985037ed660fd93a862f218b3ba1f` | [`PUCIA-0001.md.ots`](PUCIA-0001.md.ots) |
 
+Ces deux preuves sont ancrées dans Bitcoin depuis le 15 novembre 2026 (bloc le plus ancien : **975 934**).
+
 ---
 
 ## EN — What is proven
@@ -88,3 +90,5 @@ digest. The `.ots` proof sits next to its document; to verify:
 |---|---|---|
 | White paper v1.5 | `abc86f983af6a1c7b1145f3ae94897966f7f008789e16c9aa018f718cc60dfbd` | [`PUCIA_Protocole_Universel_pour_IA_v1.5.md.ots`](PUCIA_Protocole_Universel_pour_IA_v1.5.md.ots) |
 | PUCIA-0001 norm | `7922a5bf96ec6b8094681febf36e6ec7dc1985037ed660fd93a862f218b3ba1f` | [`PUCIA-0001.md.ots`](PUCIA-0001.md.ots) |
+
+Both proofs have been anchored in Bitcoin since 15 November 2026 (oldest block: **975 934**).
