@@ -1,0 +1,37 @@
+cff-version: 1.2.0
+message: "If you use or refer to PUCIA, please cite it as below. / Pour citer PUCIA, utilisez la référence ci-dessous."
+title: "PUCIA — Protocole Universel de Configuration des Intelligences Artificielles"
+abstract: "PUCIA (Universal Protocol for the Configuration of Artificial Intelligences) is an open protocol that lets artificial intelligences publish, validate, certify and reuse specialised configurations, instead of starting every training run from scratch. This repository holds the white paper (version 1.5), the draft standard PUCIA-0001 (version 0.1.0, configuration package and manifest format), its normative JSON schema and the reference verifier."
+type: software
+authors:
+  - family-names: DEMBELE
+    given-names: Honoré
+version: "1.5"
+date-released: "2026-11-15"
+repository-code: "https://github.com/pucia-protocol/pucia"
+url: "https://github.com/pucia-protocol/pucia"
+license:
+  - Apache-2.0
+  - CC-BY-4.0
+keywords:
+  - artificial intelligence
+  - machine learning
+  - protocol
+  - open standard
+  - model configuration
+  - registry
+  - certification
+  - OpenTimestamps
+preferred-citation:
+  type: report
+  title: "PUCIA — Protocole Universel de Configuration des Intelligences Artificielles"
+  authors:
+    - family-names: DEMBELE
+      given-names: Honoré
+  version: "1.5"
+  year: 2026
+  month: 11
+  languages:
+    - fr
+  url: "https://github.com/pucia-protocol/pucia/blob/main/PUCIA_Protocole_Universel_pour_IA_v1.5.md"
+  notes: "White paper, French reference version. Specification under CC BY 4.0; reference code under Apache 2.0."
