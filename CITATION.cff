@@ -13,6 +13,9 @@ identifiers:
   - type: doi
     value: 10.5281/zenodo.24294788
     description: "White paper, version 1.5 — signed PDF, French reference version and English translation (Zenodo)"
+  - type: doi
+    value: 10.5281/zenodo.24295039
+    description: "Draft standard PUCIA-0001, version 0.1.0 — signed PDF, French reference version and English translation (Zenodo)"
 url: "https://github.com/pucia-protocol/pucia"
 license:
   - Apache-2.0
@@ -40,3 +43,16 @@ preferred-citation:
     - fr
   url: "https://github.com/pucia-protocol/pucia/blob/main/PUCIA_Protocole_Universel_pour_IA_v1.5.md"
   notes: "White paper, French reference version. Specification under CC BY 4.0; reference code under Apache 2.0."
+references:
+  - type: standard
+    title: "PUCIA-0001 — Format du paquet de configuration et du manifeste"
+    authors:
+      - family-names: DEMBELE
+        given-names: Honoré
+    version: "0.1.0"
+    doi: 10.5281/zenodo.24295039
+    year: 2026
+    month: 11
+    languages:
+      - fr
+    notes: "Draft standard, French reference version; English translation in the same record."

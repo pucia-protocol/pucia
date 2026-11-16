@@ -44,7 +44,7 @@ The verifier prints its verdict in French: it means "conformant with PUCIA-0001 
 
 The white paper v1.5 and the standard PUCIA-0001 were electronically signed on 15 November 2026 by their author, Honoré DEMBELE, using Pixel Sceau (PAdES signature anchored on Bitcoin through OpenTimestamps). The signed PDF versions and their certificates are added to the repository once their anchorings are confirmed.
 
-The signed white paper, in its French reference version and its English translation, is archived on Zenodo under a permanent identifier: [10.5281/zenodo.24294788](https://doi.org/10.5281/zenodo.24294788).
+The signed white paper, in its French reference version and its English translation, is archived on Zenodo under a permanent identifier: [10.5281/zenodo.24294788](https://doi.org/10.5281/zenodo.24294788). The signed draft standard PUCIA-0001, likewise in French and English, has its own: [10.5281/zenodo.24295039](https://doi.org/10.5281/zenodo.24295039).
 
 ## Governance
 
