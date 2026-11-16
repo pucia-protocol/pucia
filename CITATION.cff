@@ -9,6 +9,10 @@ authors:
 version: "1.5"
 date-released: "2026-11-15"
 repository-code: "https://github.com/pucia-protocol/pucia"
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.24294788
+    description: "White paper, version 1.5 — signed PDF, French reference version and English translation (Zenodo)"
 url: "https://github.com/pucia-protocol/pucia"
 license:
   - Apache-2.0
@@ -29,6 +33,7 @@ preferred-citation:
     - family-names: DEMBELE
       given-names: Honoré
   version: "1.5"
+  doi: 10.5281/zenodo.24294788
   year: 2026
   month: 11
   languages:

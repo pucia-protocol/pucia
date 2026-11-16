@@ -2,6 +2,8 @@
 
 > **Français :** la version de référence de cette page est [`README.md`](https://github.com/pucia-protocol/pucia/blob/main/README.md). This page is its English translation; in case of discrepancy, the French version prevails.
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24294788.svg)](https://doi.org/10.5281/zenodo.24294788)
+
 PUCIA is an open protocol that lets artificial intelligences publish, validate, certify and reuse specialised configurations, instead of starting every training run from scratch. A fixed base of parameters, configurations that change everything, knowledge produced once and shared by all.
 
 **Author and principal maintainer:** Honoré DEMBELE
@@ -42,6 +44,8 @@ The verifier prints its verdict in French: it means "conformant with PUCIA-0001 
 
 The white paper v1.5 and the standard PUCIA-0001 were electronically signed on 15 November 2026 by their author, Honoré DEMBELE, using Pixel Sceau (PAdES signature anchored on Bitcoin through OpenTimestamps). The signed PDF versions and their certificates are added to the repository once their anchorings are confirmed.
 
+The signed white paper, in its French reference version and its English translation, is archived on Zenodo under a permanent identifier: [10.5281/zenodo.24294788](https://doi.org/10.5281/zenodo.24294788).
+
 ## Governance
 
 PUCIA is an open project with a single maintainer. Any person and any AI agent may propose a contribution; the automated benches examine it, then the maintainer alone decides whether it enters the standard. See `CONTRIBUTING.md` and sections 7 and 10 of the white paper.
@@ -55,3 +59,5 @@ The PUCIA name and the mention "PUCIA certified" belong to their author. Anyone 
 ## Cite PUCIA
 
 Use the "Cite this repository" button on this page, or the [`CITATION.cff`](https://github.com/pucia-protocol/pucia/blob/main/CITATION.cff) file.
+
+> DEMBELE, H. (2026). *PUCIA — Protocole Universel de Configuration des Intelligences Artificielles. Livre blanc, version 1.5*. Zenodo. https://doi.org/10.5281/zenodo.24294788
