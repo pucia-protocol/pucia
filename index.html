@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src &#x27;none&#x27;; style-src &#x27;sha256-z6XWBCcnkk6J6vUZL8xaThWiqTw96Dt92zXsBRUx9K0=&#x27;; script-src &#x27;sha256-/IPsEnbh6HtZxef0l2rznikTWlRFlCkKLrM3FJQXBLk=&#x27;; font-src &#x27;self&#x27;; img-src &#x27;self&#x27;; base-uri &#x27;none&#x27;; form-action &#x27;none&#x27;">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>PUCIA — Universal Protocol for the Configuration of Artificial Intelligences</title>
+<meta name="description" content="PUCIA is an open protocol that lets artificial intelligences publish, validate, certify and reuse specialised configurations instead of starting every training run from scratch. White paper, draft standard PUCIA-0001 and reference verifier.">
+<link rel="canonical" href="https://pucia-protocol.github.io/pucia/">
+<link rel="alternate" hreflang="en" href="https://pucia-protocol.github.io/pucia/">
+<link rel="alternate" hreflang="fr" href="https://pucia-protocol.github.io/pucia/fr/">
+<link rel="alternate" hreflang="x-default" href="https://pucia-protocol.github.io/pucia/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="PUCIA — Universal Protocol for the Configuration of Artificial Intelligences">
+<meta property="og:description" content="PUCIA is an open protocol that lets artificial intelligences publish, validate, certify and reuse specialised configurations instead of starting every training run from scratch. White paper, draft standard PUCIA-0001 and reference verifier.">
+<meta property="og:url" content="https://pucia-protocol.github.io/pucia/">
+<meta property="og:image" content="https://pucia-protocol.github.io/pucia/assets/apercu.png">
+<meta property="og:locale" content="en_GB">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/icone.svg" type="image/svg+xml">
+<link rel="preload" href="assets/polices/CormorantGaramond.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/polices/Newsreader.woff2" as="font" type="font/woff2" crossorigin>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "PUCIA — Universal Protocol for the Configuration of Artificial Intelligences", "description": "PUCIA is an open protocol that lets artificial intelligences publish, validate, certify and reuse specialised configurations instead of starting every training run from scratch. White paper, draft standard PUCIA-0001 and reference verifier.", "inLanguage": "en", "url": "https://pucia-protocol.github.io/pucia/", "author": {"@type": "Person", "name": "Honoré DEMBELE"}, "datePublished": "2026-11-15", "version": "1.5", "license": "https://creativecommons.org/licenses/by/4.0/", "isBasedOn": "https://github.com/pucia-protocol/pucia"}</script>
+<style>
+@font-face { font-family: "Cormorant Garamond"; src: url("assets/polices/CormorantGaramond.woff2") format("woff2"); font-weight: 300 700; font-style: normal; font-display: swap; }
+@font-face { font-family: "Cormorant Garamond"; src: url("assets/polices/CormorantGaramond-Italic.woff2") format("woff2"); font-weight: 300 700; font-style: italic; font-display: swap; }
+@font-face { font-family: "Newsreader"; src: url("assets/polices/Newsreader.woff2") format("woff2"); font-weight: 200 800; font-style: normal; font-display: swap; }
+@font-face { font-family: "Newsreader"; src: url("assets/polices/Newsreader-Italic.woff2") format("woff2"); font-weight: 200 800; font-style: italic; font-display: swap; }
+@font-face { font-family: "Manrope"; src: url("assets/polices/Manrope.woff2") format("woff2"); font-weight: 200 800; font-style: normal; font-display: swap; }
+
+:root {
+  --brume: #EEF1EE;        /* le fond : un papier de laboratoire, froid */
+  --feuillet: #F8FAF8;     /* surfaces posées sur le fond */
+  --encre: #16233B;        /* texte */
+  --encre-douce: #4A5870;  /* texte secondaire */
+  --exprime: #0D7F63;      /* ce qui s'exprime */
+  --silence: #C9D2CC;      /* ce qui reste silencieux, et les filets */
+  --ocre: #96690F;         /* statut expérimental, avec parcimonie */
+  --titre: "Cormorant Garamond", "Iowan Old Style", Georgia, serif;
+  --corps: "Newsreader", "Iowan Old Style", Georgia, serif;
+  --outil: "Manrope", "Avenir Next", "Segoe UI", sans-serif;
+  --code: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  --mesure: 39rem;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+body { margin: 0; background: var(--brume); color: var(--encre); font-family: var(--corps); font-size: 1.1875rem; line-height: 1.62; font-optical-sizing: auto; }
+a { color: var(--encre); text-decoration-color: var(--exprime); text-decoration-thickness: 1.5px; text-underline-offset: 0.2em; }
+a:hover { color: var(--exprime); }
+:focus-visible { outline: 3px solid var(--exprime); outline-offset: 3px; border-radius: 2px; }
+.cadre { width: min(100% - 2.5rem, 72rem); margin-inline: auto; }
+
+.tete { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.5rem 2rem; padding-block: 1.25rem; font-family: var(--outil); font-size: 0.9375rem; font-weight: 500; }
+.tete .marque { font-family: var(--titre); font-size: 1.6rem; font-weight: 600; letter-spacing: 0.04em; text-decoration: none; margin-right: auto; }
+.tete nav { display: flex; flex-wrap: wrap; gap: 0.25rem 1.5rem; }
+.tete a { text-decoration: none; }
+.tete a:hover { text-decoration: underline; text-decoration-color: var(--exprime); }
+.tete .langue { border: 1.5px solid var(--encre); padding: 0.2rem 0.75rem; border-radius: 999px; }
+.tete .langue:hover { background: var(--encre); color: var(--brume); text-decoration: none; }
+
+.ouverture { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2.5rem; padding-block: 2.5rem 4rem; align-items: center; }
+.ouverture h1 { font-family: var(--titre); font-weight: 500; font-size: clamp(4.5rem, 17vw, 10.5rem); line-height: 0.86; letter-spacing: 0.01em; margin: 0 0 0.12em -0.04em; }
+.ouverture .nom-long { font-family: var(--titre); font-style: italic; font-weight: 500; font-size: clamp(1.45rem, 3.2vw, 2.05rem); line-height: 1.18; margin: 0 0 1.4rem; max-width: 22ch; text-wrap: balance; }
+.ouverture .accroche { max-width: 34ch; margin: 0 0 1.9rem; color: var(--encre-douce); }
+.actions { display: flex; flex-wrap: wrap; gap: 0.75rem; font-family: var(--outil); font-size: 0.9375rem; font-weight: 600; }
+.actions a { text-decoration: none; padding: 0.7rem 1.15rem; border-radius: 4px; border: 1.5px solid var(--encre); }
+.actions .plein { background: var(--encre); color: var(--brume); }
+.actions .plein:hover { background: var(--exprime); border-color: var(--exprime); color: #fff; }
+.actions .creux:hover { background: var(--feuillet); color: var(--encre); }
+
+.plaque { margin: 0; }
+.plaque svg { display: block; width: 100%; height: auto; }
+.plaque rect { fill: var(--brume); stroke: var(--silence); stroke-width: 1.2; transition: fill 0.32s ease var(--d, 0ms), stroke 0.32s ease var(--d, 0ms); }
+.plaque rect.e { fill: var(--exprime); stroke: var(--exprime); }
+.plaque rect:nth-child(28n+2) { --d: 9ms; }
+.plaque rect:nth-child(28n+3) { --d: 18ms; }
+.plaque rect:nth-child(28n+4) { --d: 27ms; }
+.plaque rect:nth-child(28n+5) { --d: 36ms; }
+.plaque rect:nth-child(28n+6) { --d: 45ms; }
+.plaque rect:nth-child(28n+7) { --d: 54ms; }
+.plaque rect:nth-child(28n+8) { --d: 63ms; }
+.plaque rect:nth-child(28n+9) { --d: 72ms; }
+.plaque rect:nth-child(28n+10) { --d: 81ms; }
+.plaque rect:nth-child(28n+11) { --d: 90ms; }
+.plaque rect:nth-child(28n+12) { --d: 99ms; }
+.plaque rect:nth-child(28n+13) { --d: 108ms; }
+.plaque rect:nth-child(28n+14) { --d: 117ms; }
+.plaque rect:nth-child(28n+15) { --d: 126ms; }
+.plaque rect:nth-child(28n+16) { --d: 135ms; }
+.plaque rect:nth-child(28n+17) { --d: 144ms; }
+.plaque rect:nth-child(28n+18) { --d: 153ms; }
+.plaque rect:nth-child(28n+19) { --d: 162ms; }
+.plaque rect:nth-child(28n+20) { --d: 171ms; }
+.plaque rect:nth-child(28n+21) { --d: 180ms; }
+.plaque rect:nth-child(28n+22) { --d: 189ms; }
+.plaque rect:nth-child(28n+23) { --d: 198ms; }
+.plaque rect:nth-child(28n+24) { --d: 207ms; }
+.plaque rect:nth-child(28n+25) { --d: 216ms; }
+.plaque rect:nth-child(28n+26) { --d: 225ms; }
+.plaque rect:nth-child(28n+27) { --d: 234ms; }
+.plaque rect:nth-child(28n+28) { --d: 243ms; }
+
+.specialites { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.1rem; font-family: var(--outil); }
+.specialites button { font: inherit; font-size: 0.9375rem; font-weight: 600; color: var(--encre); background: transparent; border: 1.5px solid var(--silence); border-radius: 999px; padding: 0.45rem 1rem; cursor: pointer; }
+.specialites button:hover { border-color: var(--encre); }
+.specialites button[aria-pressed="true"] { background: var(--exprime); border-color: var(--exprime); color: #fff; }
+.plaque figcaption { margin-top: 1rem; font-size: 1rem; line-height: 1.45; color: var(--encre-douce); max-width: 34rem; }
+.plaque .compte { display: block; font-family: var(--outil); font-size: 0.9375rem; font-weight: 600; color: var(--encre); font-variant-numeric: tabular-nums; margin-bottom: 0.35rem; }
+.plaque .note { display: block; font-style: italic; margin-top: 0.35rem; }
+
+.partie { border-top: 1.5px solid var(--silence); padding-block: 3.5rem; }
+.partie > h2 { font-family: var(--titre); font-weight: 500; font-size: clamp(2rem, 5vw, 3rem); line-height: 1.08; margin: 0 0 1.5rem; max-width: 20ch; text-wrap: balance; }
+.partie p { max-width: var(--mesure); margin: 0 0 1.1rem; }
+.partie h3 { font-family: var(--titre); font-weight: 600; font-size: 1.55rem; line-height: 1.2; margin: 2.2rem 0 0.6rem; }
+.partie .lien-suite { font-family: var(--outil); font-size: 0.9375rem; font-weight: 600; }
+
+.trois { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2rem; }
+.trois h3 { margin-top: 0; }
+.trois p { margin: 0; color: var(--encre-douce); }
+
+.apport { max-width: var(--mesure); margin: 0; padding: 0; list-style: none; border-left: 4px solid var(--exprime); }
+.apport li { padding: 0.5rem 0 0.5rem 1.25rem; font-family: var(--titre); font-size: 1.6rem; line-height: 1.25; font-weight: 500; }
+
+.defile { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; max-width: 62rem; font-size: 1.0625rem; line-height: 1.45; }
+th { font-family: var(--outil); font-size: 0.875rem; font-weight: 600; text-align: left; color: var(--encre-douce); padding: 0 1rem 0.6rem 0; border-bottom: 1.5px solid var(--encre); }
+td { vertical-align: top; padding: 0.95rem 1rem 0.95rem 0; border-bottom: 1px solid var(--silence); }
+td.sigle { font-family: var(--titre); font-size: 1.7rem; font-weight: 600; line-height: 1.1; white-space: nowrap; }
+.statut { display: flex; gap: 0.6rem; align-items: baseline; }
+.jauge { flex: none; width: 0.8rem; height: 0.8rem; border: 1.5px solid var(--encre); translate: 0 0.05rem; }
+.jauge.plein { background: var(--exprime); border-color: var(--exprime); }
+.jauge.demi { background: linear-gradient(90deg, var(--ocre) 50%, transparent 50%); border-color: var(--ocre); }
+.limite { max-width: var(--mesure); margin-top: 2.2rem; padding: 1.1rem 1.25rem; background: var(--feuillet); border: 1.5px solid var(--silence); border-radius: 4px; }
+.limite h3 { margin: 0 0 0.4rem; font-size: 1.35rem; }
+.limite p { margin: 0; }
+.regle { font-style: italic; margin-top: 1.4rem; }
+
+.etapes { max-width: var(--mesure); margin: 0 0 1.4rem; padding-left: 1.3rem; }
+.etapes li { padding-left: 0.3rem; margin-bottom: 0.2rem; }
+pre { max-width: 46rem; margin: 0 0 1.2rem; padding: 1.1rem 1.25rem; background: var(--encre); color: #E7ECE8; border-radius: 4px; overflow-x: auto; font-family: var(--code); font-size: 0.9rem; line-height: 1.6; tab-size: 2; }
+pre .verdict { color: #7FE0C0; }
+.attendu { font-family: var(--outil); font-size: 0.9375rem; font-weight: 600; margin: 0 0 0.5rem; }
+
+.faits { max-width: var(--mesure); margin: 1.4rem 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: 0.9rem; }
+.faits div { display: grid; gap: 0.1rem; }
+.faits dt { font-family: var(--outil); font-size: 0.875rem; font-weight: 600; color: var(--encre-douce); }
+.faits dd { margin: 0; font-family: var(--code); font-size: 0.95rem; overflow-wrap: anywhere; }
+
+.portes { max-width: var(--mesure); margin: 0.8rem 0 1.6rem; padding: 0; list-style: none; counter-reset: porte; }
+.portes li { counter-increment: porte; display: grid; grid-template-columns: 2.4rem minmax(0, 1fr); padding: 0.85rem 0; border-bottom: 1px solid var(--silence); }
+.portes li::before { content: counter(porte); font-family: var(--titre); font-size: 1.9rem; font-weight: 600; line-height: 1; color: var(--exprime); }
+.portes strong { font-weight: 600; }
+
+.licences { max-width: var(--mesure); margin: 0; }
+.licences dt { font-family: var(--outil); font-size: 0.9375rem; font-weight: 600; margin-top: 1.1rem; }
+.licences dd { margin: 0.15rem 0 0; }
+
+.pied { border-top: 1.5px solid var(--encre); padding-block: 2rem 3rem; font-size: 1rem; line-height: 1.5; color: var(--encre-douce); }
+.pied p { margin: 0 0 0.3rem; }
+.pied nav { display: flex; flex-wrap: wrap; gap: 0.4rem 1.5rem; margin-top: 1.1rem; font-family: var(--outil); font-size: 0.9375rem; font-weight: 600; }
+
+@media (max-width: 43.99rem) {
+  /* téléphone : chaque ligne de tableau devient un bloc, le sigle à gauche, le reste empilé à droite */
+  table, tbody, tr, td { display: block; }
+  thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  tbody { border-top: 1.5px solid var(--encre); }
+  tr { display: grid; grid-template-columns: 3.1rem minmax(0, 1fr); padding: 1rem 0; border-bottom: 1px solid var(--silence); }
+  td { padding: 0; border: 0; }
+  td.sigle { grid-row: 1 / span 2; }
+  td.suite { grid-column: 2; margin-top: 0.55rem; color: var(--encre-douce); }
+  td.suite::before { content: attr(data-etiquette); display: block; font-family: var(--outil); font-size: 0.8125rem; font-weight: 600; color: var(--encre); margin-bottom: 0.1rem; }
+}
+@media (min-width: 60rem) {
+  .ouverture { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: 4rem; padding-block: 3.5rem 5.5rem; }
+  .trois { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 3rem; }
+  .faits { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .faits div:first-child { grid-column: 1 / -1; }
+  .partie { padding-block: 4.5rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .plaque rect { transition: none; }
+}
+</style>
+</head>
+<body>
+<header class="tete cadre">
+  <a class="marque" href="./">PUCIA</a>
+  <nav aria-label="PUCIA — Universal Protocol for the Configuration of Artificial Intelligences">
+    <a href="#idee">The idea</a>
+    <a href="#etat">Where it stands</a>
+    <a href="#verifier">Verify</a>
+    <a href="#gouvernance">Governance</a>
+    <a href="https://github.com/pucia-protocol/pucia">GitHub</a>
+  </nav>
+  <a class="langue" href="fr/" hreflang="fr" lang="fr" title="Lire cette page en français">Français</a>
+</header>
+
+<main>
+<section class="ouverture cadre">
+  <div>
+    <h1>PUCIA</h1>
+    <p class="nom-long">Universal Protocol for the Configuration of Artificial Intelligences</p>
+    <p class="accroche">An open protocol that lets artificial intelligences publish, validate, certify and reuse specialised configurations, instead of starting every training run from scratch.</p>
+    <p class="actions">
+      <a class="plein" href="https://github.com/pucia-protocol/pucia/blob/main/PUCIA_Protocole_Universel_pour_IA_v1.5.md">Read the white paper</a>
+      <a class="creux" href="https://github.com/pucia-protocol/pucia/releases/tag/v1.5">Get version 1.5</a>
+    </p>
+  </div>
+  <figure class="plaque" id="plaque" data-gabarit="{n} of 336 cells expressed">
+    <svg viewBox="0 0 502 214" role="img" aria-label="A grid of 336 cells. The cells are always the same; the ones that are expressed change with the speciality chosen below."><rect class="e" x="1" y="1" width="14" height="14" rx="1.5"/><rect class="e" x="19" y="1" width="14" height="14" rx="1.5"/><rect x="37" y="1" width="14" height="14" rx="1.5"/><rect x="55" y="1" width="14" height="14" rx="1.5"/><rect x="73" y="1" width="14" height="14" rx="1.5"/><rect x="91" y="1" width="14" height="14" rx="1.5"/><rect x="109" y="1" width="14" height="14" rx="1.5"/><rect class="e" x="127" y="1" width="14" height="14" rx="1.5"/><rect class="e" x="145" y="1" width="14" height="14" rx="1.5"/><rect x="163" y="1" width="14" height="14" rx="1.5"/><rect x="181" y="1" width="14" height="14" rx="1.5"/><rect x="199" y="1" width="14" height="14" rx="1.5"/><rect x="217" y="1" width="14" height="14" rx="1.5"/><rect x="235" y="1" width="14" height="14" rx="1.5"/><rect x="253" y="1" width="14" height="14" rx="1.5"/><rect x="271" y="1" width="14" height="14" rx="1.5"/><rect class="e" x="289" y="1" width="14" height="14" rx="1.5"/><rect class="e" x="307" y="1" width="14" height="14" rx="1.5"/><rect x="325" y="1" width="14" height="14" rx="1.5"/><rect x="343" y="1" width="14" height="14" rx="1.5"/><rect class="e" x="361" y="1" width="14" height="14" rx="1.5"/><rect class="e" x="379" y="1" width="14" height="14" rx="1.5"/><rect x="397" y="1" width="14" height="14" rx="1.5"/><rect x="415" y="1" width="14" height="14" rx="1.5"/><rect x="433" y="1" width="14" height="14" rx="1.5"/><rect x="451" y="1" width="14" height="14" rx="1.5"/><rect x="469" y="1" width="14" height="14" rx="1.5"/><rect x="487" y="1" width="14" height="14" rx="1.5"/><rect class="e" x="1" y="19" width="14" height="14" rx="1.5"/><rect class="e" x="19" y="19" width="14" height="14" rx="1.5"/><rect x="37" y="19" width="14" height="14" rx="1.5"/><rect x="55" y="19" width="14" height="14" rx="1.5"/><rect x="73" y="19" width="14" height="14" rx="1.5"/><rect x="91" y="19" width="14" height="14" rx="1.5"/><rect class="e" x="109" y="19" width="14" height="14" rx="1.5"/><rect class="e" x="127" y="19" width="14" height="14" rx="1.5"/><rect x="145" y="19" width="14" height="14" rx="1.5"/><rect x="163" y="19" width="14" height="14" rx="1.5"/><rect x="181" y="19" width="14" height="14" rx="1.5"/><rect x="199" y="19" width="14" height="14" rx="1.5"/><rect x="217" y="19" width="14" height="14" rx="1.5"/><rect x="235" y="19" width="14" height="14" rx="1.5"/><rect x="253" y="19" width="14" height="14" rx="1.5"/><rect x="271" y="19" width="14" height="14" rx="1.5"/><rect x="289" y="19" width="14" height="14" rx="1.5"/><rect x="307" y="19" width="14" height="14" rx="1.5"/><rect x="325" y="19" width="14" height="14" rx="1.5"/><rect x="343" y="19" width="14" height="14" rx="1.5"/><rect class="e" x="361" y="19" width="14" height="14" rx="1.5"/><rect class="e" x="379" y="19" width="14" height="14" rx="1.5"/><rect x="397" y="19" width="14" height="14" rx="1.5"/><rect x="415" y="19" width="14" height="14" rx="1.5"/><rect x="433" y="19" width="14" height="14" rx="1.5"/><rect x="451" y="19" width="14" height="14" rx="1.5"/><rect x="469" y="19" width="14" height="14" rx="1.5"/><rect x="487" y="19" width="14" height="14" rx="1.5"/><rect class="e" x="1" y="37" width="14" height="14" rx="1.5"/><rect class="e" x="19" y="37" width="14" height="14" rx="1.5"/><rect x="37" y="37" width="14" height="14" rx="1.5"/><rect x="55" y="37" width="14" height="14" rx="1.5"/><rect x="73" y="37" width="14" height="14" rx="1.5"/><rect x="91" y="37" width="14" height="14" rx="1.5"/><rect class="e" x="109" y="37" width="14" height="14" rx="1.5"/><rect class="e" x="127" y="37" width="14" height="14" rx="1.5"/><rect class="e" x="145" y="37" width="14" height="14" rx="1.5"/><rect class="e" x="163" y="37" width="14" height="14" rx="1.5"/><rect x="181" y="37" width="14" height="14" rx="1.5"/><rect class="e" x="199" y="37" width="14" height="14" rx="1.5"/><rect class="e" x="217" y="37" width="14" height="14" rx="1.5"/><rect class="e" x="235" y="37" width="14" height="14" rx="1.5"/><rect class="e" x="253" y="37" width="14" height="14" rx="1.5"/><rect class="e" x="271" y="37" width="14" height="14" rx="1.5"/><rect x="289" y="37" width="14" height="14" rx="1.5"/><rect x="307" y="37" width="14" height="14" rx="1.5"/><rect class="e" x="325" y="37" width="14" height="14" rx="1.5"/><rect class="e" x="343" y="37" width="14" height="14" rx="1.5"/><rect x="361" y="37" width="14" height="14" rx="1.5"/><rect x="379" y="37" width="14" height="14" rx="1.5"/><rect x="397" y="37" width="14" height="14" rx="1.5"/><rect x="415" y="37" width="14" height="14" rx="1.5"/><rect class="e" x="433" y="37" width="14" height="14" rx="1.5"/><rect class="e" x="451" y="37" width="14" height="14" rx="1.5"/><rect class="e" x="469" y="37" width="14" height="14" rx="1.5"/><rect class="e" x="487" y="37" width="14" height="14" rx="1.5"/><rect class="e" x="1" y="55" width="14" height="14" rx="1.5"/><rect x="19" y="55" width="14" height="14" rx="1.5"/><rect x="37" y="55" width="14" height="14" rx="1.5"/><rect x="55" y="55" width="14" height="14" rx="1.5"/><rect x="73" y="55" width="14" height="14" rx="1.5"/><rect x="91" y="55" width="14" height="14" rx="1.5"/><rect class="e" x="109" y="55" width="14" height="14" rx="1.5"/><rect class="e" x="127" y="55" width="14" height="14" rx="1.5"/><rect class="e" x="145" y="55" width="14" height="14" rx="1.5"/><rect class="e" x="163" y="55" width="14" height="14" rx="1.5"/><rect class="e" x="181" y="55" width="14" height="14" rx="1.5"/><rect class="e" x="199" y="55" width="14" height="14" rx="1.5"/><rect x="217" y="55" width="14" height="14" rx="1.5"/><rect class="e" x="235" y="55" width="14" height="14" rx="1.5"/><rect class="e" x="253" y="55" width="14" height="14" rx="1.5"/><rect class="e" x="271" y="55" width="14" height="14" rx="1.5"/><rect x="289" y="55" width="14" height="14" rx="1.5"/><rect x="307" y="55" width="14" height="14" rx="1.5"/><rect class="e" x="325" y="55" width="14" height="14" rx="1.5"/><rect class="e" x="343" y="55" width="14" height="14" rx="1.5"/><rect x="361" y="55" width="14" height="14" rx="1.5"/><rect x="379" y="55" width="14" height="14" rx="1.5"/><rect x="397" y="55" width="14" height="14" rx="1.5"/><rect class="e" x="415" y="55" width="14" height="14" rx="1.5"/><rect class="e" x="433" y="55" width="14" height="14" rx="1.5"/><rect x="451" y="55" width="14" height="14" rx="1.5"/><rect class="e" x="469" y="55" width="14" height="14" rx="1.5"/><rect class="e" x="487" y="55" width="14" height="14" rx="1.5"/><rect class="e" x="1" y="73" width="14" height="14" rx="1.5"/><rect x="19" y="73" width="14" height="14" rx="1.5"/><rect x="37" y="73" width="14" height="14" rx="1.5"/><rect x="55" y="73" width="14" height="14" rx="1.5"/><rect x="73" y="73" width="14" height="14" rx="1.5"/><rect class="e" x="91" y="73" width="14" height="14" rx="1.5"/><rect x="109" y="73" width="14" height="14" rx="1.5"/><rect x="127" y="73" width="14" height="14" rx="1.5"/><rect class="e" x="145" y="73" width="14" height="14" rx="1.5"/><rect class="e" x="163" y="73" width="14" height="14" rx="1.5"/><rect x="181" y="73" width="14" height="14" rx="1.5"/><rect x="199" y="73" width="14" height="14" rx="1.5"/><rect class="e" x="217" y="73" width="14" height="14" rx="1.5"/><rect class="e" x="235" y="73" width="14" height="14" rx="1.5"/><rect x="253" y="73" width="14" height="14" rx="1.5"/><rect x="271" y="73" width="14" height="14" rx="1.5"/><rect class="e" x="289" y="73" width="14" height="14" rx="1.5"/><rect class="e" x="307" y="73" width="14" height="14" rx="1.5"/><rect x="325" y="73" width="14" height="14" rx="1.5"/><rect x="343" y="73" width="14" height="14" rx="1.5"/><rect x="361" y="73" width="14" height="14" rx="1.5"/><rect x="379" y="73" width="14" height="14" rx="1.5"/><rect class="e" x="397" y="73" width="14" height="14" rx="1.5"/><rect class="e" x="415" y="73" width="14" height="14" rx="1.5"/><rect x="433" y="73" width="14" height="14" rx="1.5"/><rect x="451" y="73" width="14" height="14" rx="1.5"/><rect class="e" x="469" y="73" width="14" height="14" rx="1.5"/><rect class="e" x="487" y="73" width="14" height="14" rx="1.5"/><rect class="e" x="1" y="91" width="14" height="14" rx="1.5"/><rect class="e" x="19" y="91" width="14" height="14" rx="1.5"/><rect x="37" y="91" width="14" height="14" rx="1.5"/><rect x="55" y="91" width="14" height="14" rx="1.5"/><rect class="e" x="73" y="91" width="14" height="14" rx="1.5"/><rect class="e" x="91" y="91" width="14" height="14" rx="1.5"/><rect x="109" y="91" width="14" height="14" rx="1.5"/><rect x="127" y="91" width="14" height="14" rx="1.5"/><rect class="e" x="145" y="91" width="14" height="14" rx="1.5"/><rect class="e" x="163" y="91" width="14" height="14" rx="1.5"/><rect x="181" y="91" width="14" height="14" rx="1.5"/><rect x="199" y="91" width="14" height="14" rx="1.5"/><rect class="e" x="217" y="91" width="14" height="14" rx="1.5"/><rect class="e" x="235" y="91" width="14" height="14" rx="1.5"/><rect x="253" y="91" width="14" height="14" rx="1.5"/><rect x="271" y="91" width="14" height="14" rx="1.5"/><rect class="e" x="289" y="91" width="14" height="14" rx="1.5"/><rect class="e" x="307" y="91" width="14" height="14" rx="1.5"/><rect x="325" y="91" width="14" height="14" rx="1.5"/><rect x="343" y="91" width="14" height="14" rx="1.5"/><rect x="361" y="91" width="14" height="14" rx="1.5"/><rect x="379" y="91" width="14" height="14" rx="1.5"/><rect x="397" y="91" width="14" height="14" rx="1.5"/><rect class="e" x="415" y="91" width="14" height="14" rx="1.5"/><rect x="433" y="91" width="14" height="14" rx="1.5"/><rect x="451" y="91" width="14" height="14" rx="1.5"/><rect class="e" x="469" y="91" width="14" height="14" rx="1.5"/><rect class="e" x="487" y="91" width="14" height="14" rx="1.5"/><rect x="1" y="109" width="14" height="14" rx="1.5"/><rect x="19" y="109" width="14" height="14" rx="1.5"/><rect x="37" y="109" width="14" height="14" rx="1.5"/><rect x="55" y="109" width="14" height="14" rx="1.5"/><rect x="73" y="109" width="14" height="14" rx="1.5"/><rect x="91" y="109" width="14" height="14" rx="1.5"/><rect class="e" x="109" y="109" width="14" height="14" rx="1.5"/><rect class="e" x="127" y="109" width="14" height="14" rx="1.5"/><rect x="145" y="109" width="14" height="14" rx="1.5"/><rect x="163" y="109" width="14" height="14" rx="1.5"/><rect x="181" y="109" width="14" height="14" rx="1.5"/><rect x="199" y="109" width="14" height="14" rx="1.5"/><rect x="217" y="109" width="14" height="14" rx="1.5"/><rect x="235" y="109" width="14" height="14" rx="1.5"/><rect class="e" x="253" y="109" width="14" height="14" rx="1.5"/><rect class="e" x="271" y="109" width="14" height="14" rx="1.5"/><rect x="289" y="109" width="14" height="14" rx="1.5"/><rect x="307" y="109" width="14" height="14" rx="1.5"/><rect x="325" y="109" width="14" height="14" rx="1.5"/><rect x="343" y="109" width="14" height="14" rx="1.5"/><rect class="e" x="361" y="109" width="14" height="14" rx="1.5"/><rect x="379" y="109" width="14" height="14" rx="1.5"/><rect class="e" x="397" y="109" width="14" height="14" rx="1.5"/><rect class="e" x="415" y="109" width="14" height="14" rx="1.5"/><rect x="433" y="109" width="14" height="14" rx="1.5"/><rect x="451" y="109" width="14" height="14" rx="1.5"/><rect x="469" y="109" width="14" height="14" rx="1.5"/><rect x="487" y="109" width="14" height="14" rx="1.5"/><rect x="1" y="127" width="14" height="14" rx="1.5"/><rect x="19" y="127" width="14" height="14" rx="1.5"/><rect x="37" y="127" width="14" height="14" rx="1.5"/><rect x="55" y="127" width="14" height="14" rx="1.5"/><rect x="73" y="127" width="14" height="14" rx="1.5"/><rect class="e" x="91" y="127" width="14" height="14" rx="1.5"/><rect class="e" x="109" y="127" width="14" height="14" rx="1.5"/><rect class="e" x="127" y="127" width="14" height="14" rx="1.5"/><rect x="145" y="127" width="14" height="14" rx="1.5"/><rect x="163" y="127" width="14" height="14" rx="1.5"/><rect class="e" x="181" y="127" width="14" height="14" rx="1.5"/><rect class="e" x="199" y="127" width="14" height="14" rx="1.5"/><rect x="217" y="127" width="14" height="14" rx="1.5"/><rect x="235" y="127" width="14" height="14" rx="1.5"/><rect class="e" x="253" y="127" width="14" height="14" rx="1.5"/><rect x="271" y="127" width="14" height="14" rx="1.5"/><rect x="289" y="127" width="14" height="14" rx="1.5"/><rect x="307" y="127" width="14" height="14" rx="1.5"/><rect x="325" y="127" width="14" height="14" rx="1.5"/><rect class="e" x="343" y="127" width="14" height="14" rx="1.5"/><rect class="e" x="361" y="127" width="14" height="14" rx="1.5"/><rect class="e" x="379" y="127" width="14" height="14" rx="1.5"/><rect class="e" x="397" y="127" width="14" height="14" rx="1.5"/><rect class="e" x="415" y="127" width="14" height="14" rx="1.5"/><rect x="433" y="127" width="14" height="14" rx="1.5"/><rect x="451" y="127" width="14" height="14" rx="1.5"/><rect x="469" y="127" width="14" height="14" rx="1.5"/><rect x="487" y="127" width="14" height="14" rx="1.5"/><rect x="1" y="145" width="14" height="14" rx="1.5"/><rect x="19" y="145" width="14" height="14" rx="1.5"/><rect x="37" y="145" width="14" height="14" rx="1.5"/><rect x="55" y="145" width="14" height="14" rx="1.5"/><rect class="e" x="73" y="145" width="14" height="14" rx="1.5"/><rect class="e" x="91" y="145" width="14" height="14" rx="1.5"/><rect x="109" y="145" width="14" height="14" rx="1.5"/><rect x="127" y="145" width="14" height="14" rx="1.5"/><rect x="145" y="145" width="14" height="14" rx="1.5"/><rect x="163" y="145" width="14" height="14" rx="1.5"/><rect class="e" x="181" y="145" width="14" height="14" rx="1.5"/><rect class="e" x="199" y="145" width="14" height="14" rx="1.5"/><rect class="e" x="217" y="145" width="14" height="14" rx="1.5"/><rect class="e" x="235" y="145" width="14" height="14" rx="1.5"/><rect x="253" y="145" width="14" height="14" rx="1.5"/><rect class="e" x="271" y="145" width="14" height="14" rx="1.5"/><rect x="289" y="145" width="14" height="14" rx="1.5"/><rect class="e" x="307" y="145" width="14" height="14" rx="1.5"/><rect x="325" y="145" width="14" height="14" rx="1.5"/><rect x="343" y="145" width="14" height="14" rx="1.5"/><rect x="361" y="145" width="14" height="14" rx="1.5"/><rect x="379" y="145" width="14" height="14" rx="1.5"/><rect x="397" y="145" width="14" height="14" rx="1.5"/><rect x="415" y="145" width="14" height="14" rx="1.5"/><rect class="e" x="433" y="145" width="14" height="14" rx="1.5"/><rect class="e" x="451" y="145" width="14" height="14" rx="1.5"/><rect x="469" y="145" width="14" height="14" rx="1.5"/><rect x="487" y="145" width="14" height="14" rx="1.5"/><rect x="1" y="163" width="14" height="14" rx="1.5"/><rect x="19" y="163" width="14" height="14" rx="1.5"/><rect class="e" x="37" y="163" width="14" height="14" rx="1.5"/><rect x="55" y="163" width="14" height="14" rx="1.5"/><rect class="e" x="73" y="163" width="14" height="14" rx="1.5"/><rect class="e" x="91" y="163" width="14" height="14" rx="1.5"/><rect x="109" y="163" width="14" height="14" rx="1.5"/><rect x="127" y="163" width="14" height="14" rx="1.5"/><rect x="145" y="163" width="14" height="14" rx="1.5"/><rect x="163" y="163" width="14" height="14" rx="1.5"/><rect class="e" x="181" y="163" width="14" height="14" rx="1.5"/><rect class="e" x="199" y="163" width="14" height="14" rx="1.5"/><rect class="e" x="217" y="163" width="14" height="14" rx="1.5"/><rect class="e" x="235" y="163" width="14" height="14" rx="1.5"/><rect x="253" y="163" width="14" height="14" rx="1.5"/><rect class="e" x="271" y="163" width="14" height="14" rx="1.5"/><rect class="e" x="289" y="163" width="14" height="14" rx="1.5"/><rect class="e" x="307" y="163" width="14" height="14" rx="1.5"/><rect x="325" y="163" width="14" height="14" rx="1.5"/><rect x="343" y="163" width="14" height="14" rx="1.5"/><rect x="361" y="163" width="14" height="14" rx="1.5"/><rect x="379" y="163" width="14" height="14" rx="1.5"/><rect x="397" y="163" width="14" height="14" rx="1.5"/><rect x="415" y="163" width="14" height="14" rx="1.5"/><rect class="e" x="433" y="163" width="14" height="14" rx="1.5"/><rect class="e" x="451" y="163" width="14" height="14" rx="1.5"/><rect x="469" y="163" width="14" height="14" rx="1.5"/><rect x="487" y="163" width="14" height="14" rx="1.5"/><rect x="1" y="181" width="14" height="14" rx="1.5"/><rect x="19" y="181" width="14" height="14" rx="1.5"/><rect x="37" y="181" width="14" height="14" rx="1.5"/><rect x="55" y="181" width="14" height="14" rx="1.5"/><rect class="e" x="73" y="181" width="14" height="14" rx="1.5"/><rect class="e" x="91" y="181" width="14" height="14" rx="1.5"/><rect x="109" y="181" width="14" height="14" rx="1.5"/><rect class="e" x="127" y="181" width="14" height="14" rx="1.5"/><rect class="e" x="145" y="181" width="14" height="14" rx="1.5"/><rect x="163" y="181" width="14" height="14" rx="1.5"/><rect x="181" y="181" width="14" height="14" rx="1.5"/><rect x="199" y="181" width="14" height="14" rx="1.5"/><rect x="217" y="181" width="14" height="14" rx="1.5"/><rect x="235" y="181" width="14" height="14" rx="1.5"/><rect class="e" x="253" y="181" width="14" height="14" rx="1.5"/><rect class="e" x="271" y="181" width="14" height="14" rx="1.5"/><rect class="e" x="289" y="181" width="14" height="14" rx="1.5"/><rect class="e" x="307" y="181" width="14" height="14" rx="1.5"/><rect class="e" x="325" y="181" width="14" height="14" rx="1.5"/><rect class="e" x="343" y="181" width="14" height="14" rx="1.5"/><rect x="361" y="181" width="14" height="14" rx="1.5"/><rect x="379" y="181" width="14" height="14" rx="1.5"/><rect class="e" x="397" y="181" width="14" height="14" rx="1.5"/><rect class="e" x="415" y="181" width="14" height="14" rx="1.5"/><rect x="433" y="181" width="14" height="14" rx="1.5"/><rect x="451" y="181" width="14" height="14" rx="1.5"/><rect x="469" y="181" width="14" height="14" rx="1.5"/><rect x="487" y="181" width="14" height="14" rx="1.5"/><rect x="1" y="199" width="14" height="14" rx="1.5"/><rect x="19" y="199" width="14" height="14" rx="1.5"/><rect x="37" y="199" width="14" height="14" rx="1.5"/><rect x="55" y="199" width="14" height="14" rx="1.5"/><rect x="73" y="199" width="14" height="14" rx="1.5"/><rect class="e" x="91" y="199" width="14" height="14" rx="1.5"/><rect x="109" y="199" width="14" height="14" rx="1.5"/><rect x="127" y="199" width="14" height="14" rx="1.5"/><rect class="e" x="145" y="199" width="14" height="14" rx="1.5"/><rect class="e" x="163" y="199" width="14" height="14" rx="1.5"/><rect x="181" y="199" width="14" height="14" rx="1.5"/><rect x="199" y="199" width="14" height="14" rx="1.5"/><rect x="217" y="199" width="14" height="14" rx="1.5"/><rect x="235" y="199" width="14" height="14" rx="1.5"/><rect class="e" x="253" y="199" width="14" height="14" rx="1.5"/><rect class="e" x="271" y="199" width="14" height="14" rx="1.5"/><rect x="289" y="199" width="14" height="14" rx="1.5"/><rect x="307" y="199" width="14" height="14" rx="1.5"/><rect x="325" y="199" width="14" height="14" rx="1.5"/><rect class="e" x="343" y="199" width="14" height="14" rx="1.5"/><rect x="361" y="199" width="14" height="14" rx="1.5"/><rect x="379" y="199" width="14" height="14" rx="1.5"/><rect class="e" x="397" y="199" width="14" height="14" rx="1.5"/><rect class="e" x="415" y="199" width="14" height="14" rx="1.5"/><rect x="433" y="199" width="14" height="14" rx="1.5"/><rect class="e" x="451" y="199" width="14" height="14" rx="1.5"/><rect x="469" y="199" width="14" height="14" rx="1.5"/><rect x="487" y="199" width="14" height="14" rx="1.5"/></svg>
+    <div class="specialites" role="group" aria-label="Choose a speciality"><button type="button" aria-pressed="true">Doctor</button><button type="button" aria-pressed="false">Cook</button><button type="button" aria-pressed="false">Singer</button><button type="button" aria-pressed="false">Engineer</button></div>
+    <figcaption>
+      <span class="compte" id="compte" aria-live="polite">133 of 336 cells expressed</span>
+      The same 336 cells every time. Choose a speciality: only what is expressed changes.
+      <span class="note">An illustration of the principle, with the author&#x27;s own examples. It does not depict a literal technical capability.</span>
+    </figcaption>
+  </figure>
+</section>
+
+<section class="partie cadre" id="idee">
+  <h2>A fixed base, configurations that change everything</h2>
+  <div class="trois"><div><h3>Ever more parameters: until when?</h3><p>The current race in artificial intelligence rests on a single recipe: ever more parameters, ever more data, ever more computation. The author proposes to reverse the logic: first set a parameter limit that no longer grows, then learn to configure those parameters according to the task.</p></div><div><h3>The lesson of living organisms</h3><p>A neuron, a liver cell and a muscle cell do not differ in the quantity of DNA they contain, but in which genes are expressed and which remain silent. For AI: a fixed number of parameters, like a genome, and a configuration that decides what is expressed.</p></div><div><h3>Learn once, know everywhere</h3><p>The learning effort is made once, then shared: loading a validated configuration instead of repeating the training. Knowledge produced once and shared by all.</p></div></div>
+</section>
+
+<section class="partie cadre">
+  <h2>What PUCIA adds</h2>
+  <p>Adapter transfer is already practised. What is missing is what turns a configuration into a certified asset, not merely a shared file:</p>
+  <ul class="apport"><li>a signed and timestamped manifest;</li><li>reproducible independent validation;</li><li>complete accounting of costs and parameters.</li></ul>
+</section>
+
+<section class="partie cadre" id="etat">
+  <h2>Where it stands</h2>
+  <p>The protocol distinguishes three regimes, and says plainly which one is within reach.</p>
+  <div class="defile"><table role="table">
+    <thead><tr role="row"><th role="columnheader" scope="col">Regime</th><th role="columnheader" scope="col">What it means</th><th role="columnheader" scope="col">Status</th></tr></thead>
+    <tbody><tr role="row"><td role="cell" class="sigle">R1</td><td role="cell">Load an existing configuration or adaptation.</td><td role="cell" class="suite" data-etiquette="Status"><span class="statut"><span class="jauge plein" aria-hidden="true"></span><span>Feasible today, subject to compatibility.</span></span></td></tr><tr role="row"><td role="cell" class="sigle">R2</td><td role="cell">Change speciality without increasing the declared total parameter budget.</td><td role="cell" class="suite" data-etiquette="Status"><span class="statut"><span class="jauge demi" aria-hidden="true"></span><span>Experimental.</span></span></td></tr><tr role="row"><td role="cell" class="sigle">R3</td><td role="cell">Generate a high-performing configuration for a new task without massive task-specific training.</td><td role="cell" class="suite" data-etiquette="Status"><span class="statut"><span class="jauge vide" aria-hidden="true"></span><span>Advanced hypothesis; first research results published (Text-to-LoRA).</span></span></td></tr></tbody>
+  </table></div>
+  <div class="limite"><h3>What is not established</h3><p>LoRA usually adds parameters. It can serve as a reference for a prototype but does not demonstrate the strict ceiling. Neither universal weight compatibility nor the instant programming of new competences has been achieved.</p></div>
+</section>
+
+<section class="partie cadre">
+  <h2>Five falsifiable hypotheses</h2>
+  <p>PUCIA is a research, standardisation and economic value proposal, to be validated by experiment. Each hypothesis comes with the test that could refute it.</p>
+  <div class="defile"><table role="table">
+    <thead><tr role="row"><th role="columnheader" scope="col"></th><th role="columnheader" scope="col">Hypothesis</th><th role="columnheader" scope="col">Refutation test</th></tr></thead>
+    <tbody><tr role="row"><td role="cell" class="sigle">H1</td><td role="cell">A validated configuration can be reused at a lower marginal cost than retraining.</td><td role="cell" class="suite" data-etiquette="Refutation test">Compare full costs, including integration and validation, at equal quality.</td></tr><tr role="row"><td role="cell" class="sigle">H2</td><td role="cell">A fixed-budget model family can serve several tasks through reconfiguration.</td><td role="cell" class="suite" data-etiquette="Refutation test">Compare with a single-task baseline and check the total budget.</td></tr><tr role="row"><td role="cell" class="sigle">H3</td><td role="cell">Pooled configurations improve the prediction of new configurations.</td><td role="cell" class="suite" data-etiquette="Refutation test">Evaluate out of distribution on isolated tasks.</td></tr><tr role="row"><td role="cell" class="sigle">H4</td><td role="cell">Cooperating AI agents improve the search for configurations.</td><td role="cell" class="suite" data-etiquette="Refutation test">Compare cooperation, a single agent and conventional search at equal computation.</td></tr><tr role="row"><td role="cell" class="sigle">H5</td><td role="cell">A public standard and a configuration market create economic incentives.</td><td role="cell" class="suite" data-etiquette="Refutation test">Commercial pilots with observed costs and revenues.</td></tr></tbody>
+  </table></div>
+  <p class="regle">Rule: pre-registered metrics, reproducibility and honest cost accounting.</p>
+</section>
+
+<section class="partie cadre" id="verifier">
+  <h2>Verify a package yourself</h2>
+  <p>The repository holds the white paper, the draft standard PUCIA-0001 (configuration package and manifest format), its normative JSON schema, a reference verifier and a signed example package. Three steps check the example:</p>
+  <ol class="etapes"><li>Get the repository.</li><li>Install the two dependencies.</li><li>Run the verifier on the example package.</li></ol>
+<pre><code>git clone https://github.com/pucia-protocol/pucia.git
+cd pucia
+pip install jsonschema cryptography
+python verify.py exemple-masque-extraction pucia-0001-manifest.schema.json</code></pre>
+  <p class="attendu">Expected result</p>
+<pre><code class="verdict">CONFORME PUCIA-0001 (contrôles V1 à V9)</code></pre>
+  <p>The verifier answers in French: “conformant with PUCIA-0001, checks V1 to V9”. This result attests the structure of the package, the integrity of its content and the presence of the timestamp proofs. The cryptographic validity of the proofs falls under PUCIA-0002, and the identity of the publisher under PUCIA-0003.</p>
+  <p class="lien-suite"><a href="https://github.com/pucia-protocol/pucia/blob/main/PUCIA-0001.md">Read the standard PUCIA-0001</a></p>
+</section>
+
+<section class="partie cadre">
+  <h2>Signed and timestamped</h2>
+  <p>The commit of the initial publication was timestamped independently of GitHub with OpenTimestamps. The proof is anchored in Bitcoin: it remains verifiable even if the repository disappeared.</p>
+  <dl class="faits"><div><dt>Commit</dt><dd>8cd17df496002554721419c7a84062193f583197</dd></div><div><dt>Date of the timestamp</dt><dd>15 November 2026</dd></div><div><dt>Bitcoin anchoring, oldest block</dt><dd>975 880</dd></div></dl>
+  <p class="lien-suite"><a href="https://github.com/pucia-protocol/pucia/blob/main/ANTERIORITE.md">How to check the proof yourself</a></p>
+</section>
+
+<section class="partie cadre" id="gouvernance">
+  <h2>An open project with a single maintainer</h2>
+  <p>AI agents propose, test, validate and improve configurations autonomously, within an enclosure whose ceilings are set in advance. A human maintainer alone decides what enters the standard, and a legal entity carries the contracts and the financial flows.</p>
+  <h3>The four gates reserved for the human</h3>
+  <ol class="portes"><li><span><strong>Integration into the standard.</strong> The maintainer alone decides what enters the specification and the official catalogue.</span></li><li><span><strong>Money and contracts.</strong> An AI agent has no legal personality: licences, sales and payments are concluded by the operating legal entity, Pixel AI SARLU.</span></li><li><span><strong>Ceilings.</strong> The maintainer sets the computation, storage and spending budgets in advance; any overrun automatically suspends the activity concerned.</span></li><li><span><strong>Release into the real world.</strong> No configuration propagates automatically from one AI to another outside the enclosure.</span></li></ol>
+  <p class="lien-suite"><a href="https://github.com/pucia-protocol/pucia/blob/main/CONTRIBUTING.md">Contribution rules, for humans and AI agents</a></p>
+</section>
+
+<section class="partie cadre">
+  <h2>Licences and name</h2>
+  <dl class="licences"><dt>Specification and white paper</dt><dd>Creative Commons Attribution 4.0 International. Any reuse must credit the author and the source.</dd><dt>Reference code</dt><dd>Apache 2.0.</dd><dt>Name</dt><dd>The PUCIA name and the “PUCIA Certified” designation belong to their author. Anyone may write that a piece of software is “compatible with the PUCIA specification”. Only the registry operator may present itself as such, and only approved validators may issue the “PUCIA Certified” designation.</dd></dl>
+</section>
+</main>
+
+<footer class="pied cadre">
+  <p>Author and principal maintainer: Honoré DEMBELE.</p>
+  <p>Registry operator: Pixel AI SARLU, Abidjan.</p>
+  <p>This page is an English translation. In case of discrepancy, the French version prevails.</p>
+  <nav aria-label="GitHub">
+    <a href="https://github.com/pucia-protocol/pucia">Repository on GitHub</a>
+    <a href="https://github.com/pucia-protocol/pucia/releases/tag/v1.5">Version 1.5</a>
+    <a href="https://github.com/pucia-protocol/pucia/blob/main/CITATION.cff">How to cite PUCIA</a>
+    <a href="fr/" hreflang="fr" lang="fr">Français</a>
+  </nav>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+  var COLONNES = 28, GRAINES = [11, 29, 47, 83];
+  var plaque = document.getElementById("plaque");
+  if (!plaque) { return; }
+  var cellules = plaque.querySelectorAll("rect");
+  var boutons = plaque.querySelectorAll("button");
+  var compte = document.getElementById("compte");
+  var gabarit = plaque.getAttribute("data-gabarit");
+
+  // Même calcul que le script de construction : la page servie sans script montre déjà la première spécialité.
+  function tirage(a, b, c) {
+    return ((Math.imul(a, 73856093) ^ Math.imul(b, 19349663) ^ Math.imul(c, 83492791)) >>> 0) % 100;
+  }
+  function exprimee(x, y, graine) {
+    if (tirage(x >> 1, y >> 1, graine) < 36) { return tirage(x, y, graine + 7) < 86; }
+    return tirage(x, y, graine + 13) < 5;
+  }
+  function montrer(indice) {
+    var graine = GRAINES[indice], n = 0, i, x, y, oui;
+    for (i = 0; i < cellules.length; i += 1) {
+      x = i % COLONNES; y = Math.floor(i / COLONNES);
+      oui = exprimee(x, y, graine);
+      cellules[i].classList.toggle("e", oui);
+      if (oui) { n += 1; }
+    }
+    for (i = 0; i < boutons.length; i += 1) {
+      boutons[i].setAttribute("aria-pressed", i === indice ? "true" : "false");
+    }
+    compte.textContent = gabarit.replace("{n}", String(n));
+  }
+  Array.prototype.forEach.call(boutons, function (bouton, indice) {
+    bouton.addEventListener("click", function () { montrer(indice); });
+  });
+}());
+</script>
+</body>
+</html>
